@@ -8,22 +8,18 @@ int compareAsc(const void*a, const void*b){
     int y = *(int *)b;
     return x-y;
 }
-
 int compareDesc(const void*a, const void*b){
     int x = *(int *)a;
     int y = *(int *)b;
-    return y-x;
-    
+    return y-x;    
 }
-
 char* twoArrays(int k, int n, int A[], int B[]){
     qsort(A, n, sizeof(int), compareAsc);
     qsort(B, n, sizeof(int), compareDesc);
     
     for(int i=0; i<n; i++){
         if (A[i] + B[i] <k){
-            return "NO";
-            
+            return "NO";          
         }
     }
     return "YES";
@@ -38,8 +34,7 @@ int main(){
         
         int A[n], B[n];
         for(int i=0; i<n; i++){
-            scanf("%d", &A[i]);
-            
+            scanf("%d", &A[i]);    
         }
         for(int i=0; i<n; i++){
             scanf("%d", &B[i]);

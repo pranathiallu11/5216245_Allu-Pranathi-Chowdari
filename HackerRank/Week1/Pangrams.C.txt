@@ -1,6 +1,6 @@
-#include<stdio.h>
 Pangrams - C
 
+#include<stdio.h>
 #include<string.h>
 #include<ctype.h>
 #define ALBHABET_COUNT 26
