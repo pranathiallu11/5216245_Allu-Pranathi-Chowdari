@@ -1,0 +1,45 @@
+Sales by Match - C
+
+#include<stdio.h>
+int sockMerchant(int n, int ar[]){
+    int pairs = 0;
+    
+    int visited[101] = {0};
+    
+    int max_color = 0;
+    for(int i = 0; i<n; i++){
+        if(ar[i]>max_color){
+            max_color = ar[i];
+        }
+    }
+    int count[max_color + 1];
+    for(int i=0; i<=max_color; i++){
+        count[i] = 0;
+    }
+    
+    for (int i=0; i<n; i++){
+        count[ar[i]]++;
+        
+    }
+    
+    for (int i = 0; i <= max_color; i++){
+        pairs += count[i] / 2;
+    }
+    
+    return pairs;
+    
+    
+}
+
+int main(){
+    int n;
+    scanf("%d", &n);
+    int ar[n];
+    for (int i=0; i<n; i++){
+        scanf("%d", &ar[i]);
+        
+    }
+    int result = sockMerchant(n, ar);
+    printf("%d\n", result);
+return 0;
+}

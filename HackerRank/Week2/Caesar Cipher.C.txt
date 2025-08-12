@@ -1,0 +1,28 @@
+Caesar Cipher - C
+
+#include<stdio.h>
+#include<string.h>
+#include<ctype.h>
+
+void caesarCipher(char *s, int k){
+    int shift = k%26;
+    for(int i=0; s[i]!= '\0'; i++){
+        if(isupper(s[i])){
+            s[i] = ((s[i] - 'A' + shift)%26) + 'A';
+        }
+        else if (islower(s[i])){
+            s[i] = ((s[i] - 'a' + shift)%26) + 'a';
+        }
+    }
+}
+int main(){
+    int n,k;
+    char s[101];
+    scanf("%d", &n);
+    scanf("%s",s);
+    scanf("%d",&k);
+    
+    caesarCipher(s,k);
+    printf("%s\n", s);
+    return 0;
+}
