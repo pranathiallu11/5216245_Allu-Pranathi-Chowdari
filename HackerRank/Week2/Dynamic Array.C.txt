@@ -1,0 +1,61 @@
+Dynamic Array - C
+
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct{
+    int *data;
+    int size;
+    int capacity;
+}DynamicList;
+
+void initList(DynamicList *list){
+    list->capacity = 2;
+    list->size = 0;
+    list->data = (int *)malloc(list->capacity * sizeof(int));
+    
+}
+
+void append(DynamicList *list, int value){
+    if(list->size == list->capacity){
+        list->capacity *= 2;
+        list->data = (int *)realloc(list->data, list->capacity *sizeof(int));
+    }
+    list->data[list->size++] = value;
+}
+
+int main(){
+int n, q;
+scanf("%d %d", &n, &q);
+
+DynamicList *arr = (DynamicList *)malloc(n *sizeof(DynamicList));
+for(int i=0; i<n; i++){
+    initList(&arr[i]);
+
+}
+
+int lastAnswer = 0;
+
+for (int i =0; i<q; i++){
+    int type, x, y;
+    scanf("%d %d %d", &type, &x, &y);
+    
+    int idx = (x ^ lastAnswer)%n;
+    
+    if(type ==1){
+        append(&arr[idx],y);
+    }
+    else if(type == 2){
+        int pos = y % arr[idx].size;
+        lastAnswer = arr[idx].data[pos];
+        printf("%d\n", lastAnswer);
+    }
+    }
+    for(int i =0; i<n; i++){
+        free(arr[i].data);
+        
+    }
+    free(arr);
+    
+    return 0;
+}

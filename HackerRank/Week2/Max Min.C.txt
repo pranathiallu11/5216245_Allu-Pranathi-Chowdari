@@ -1,0 +1,32 @@
+Max Min - C
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<limits.h>
+int compare(const void *a, const void *b){
+    long long val = (long long)(*(int*)a) - (long long)(*(int*)b);
+    return (val > 0) - (val < 0);
+}
+int main(){
+    int n,k;
+    scanf("%d", &n);
+    scanf("%d", &k);
+    
+    int *arr = (int *)malloc(n * sizeof(int));
+    for(int i=0; i<n; i++){
+        scanf("%d", &arr[i]);
+    }
+    qsort(arr, n, sizeof(int), compare);
+    
+    long long min_unfairness = LLONG_MAX;
+    for(int i=0; i<=n-k; i++){
+        long long diff = (long long)arr[i+k-1] - (long long)arr[i];
+        if(diff < min_unfairness){
+            min_unfairness = diff;    
+            }
+            
+        }
+        printf("%lld\n", min_unfairness);
+        free(arr);
+        return 0;
+    }
