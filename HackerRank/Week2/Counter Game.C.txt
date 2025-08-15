@@ -1,0 +1,41 @@
+Counter Game - C
+
+#include<stdio.h>
+#include<stdbool.h>
+
+bool isPowerOfTwo(unsigned long long n){
+    return (n && !(n & (n-1)));
+    
+}
+
+unsigned long long largestPowerOfTwoLessThan(unsigned long long n){
+    unsigned long long p = 1;
+    while(p<<1<n){
+        p<<=1;
+    }
+    return p;
+    }
+    const char* counterGame(unsigned long long n){
+        int moves = 0;
+        
+        while(n!=1){
+            if(isPowerOfTwo(n)){
+                n>>=1;
+            }else{
+                n -= largestPowerOfTwoLessThan(n);
+            }
+            moves++;
+            
+            }
+            return(moves%2 == 0)? "Richard" : "Louise";
+        }
+        int main(){
+            int t;
+            scanf("%d", &t);
+            while(t--){
+                unsigned long long n;
+                scanf("%llu", &n);
+                printf("%s\n", counterGame(n));
+            }
+            return 0;
+        }
