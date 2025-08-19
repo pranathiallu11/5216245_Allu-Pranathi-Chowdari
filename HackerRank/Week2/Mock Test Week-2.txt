@@ -1,0 +1,149 @@
+1. Palindrome Index
+
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
+// Function to check if a substring s[l..r] is a palindrome
+bool isPalindrome(char *s, int l, int r) {
+    while (l < r) {
+        if (s[l] != s[r])
+            return false;
+        l++;
+        r--;
+    }
+    return true;
+}
+
+int palindromeIndex(char *s) {
+    int l = 0, r = strlen(s) - 1;
+
+    while (l < r) {
+        if (s[l] != s[r]) {
+            // Either remove left char or right char
+            if (isPalindrome(s, l + 1, r))
+                return l;
+            else if (isPalindrome(s, l, r - 1))
+                return r;
+            else
+                return -1;
+        }
+        l++;
+        r--;
+    }
+    return -1;  // already a palindrome
+}
+
+int main() {
+    int q;
+    scanf("%d", &q);
+
+    char s[100005];  // max string length (10^5 + 5)
+
+    while (q--) {
+        scanf("%s", s);
+        printf("%d\n", palindromeIndex(s));
+    }
+
+    return 0;
+}
+
+2. Between two sets
+
+#include <stdio.h>
+
+// Function to find GCD of two numbers
+int gcd(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+// Function to find LCM of two numbers
+int lcm(int a, int b) {
+    return (a * b) / gcd(a, b);
+}
+
+int main() {
+    int n, m;
+    scanf("%d %d", &n, &m);
+
+    int a[n], b[m];
+    for (int i = 0; i < n; i++) scanf("%d", &a[i]);
+    for (int j = 0; j < m; j++) scanf("%d", &b[j]);
+
+    // Step 1: Find LCM of array a
+    int l = a[0];
+    for (int i = 1; i < n; i++) {
+        l = lcm(l, a[i]);
+    }
+
+    // Step 2: Find GCD of array b
+    int g = b[0];
+    for (int j = 1; j < m; j++) {
+        g = gcd(g, b[j]);
+    }
+
+    // Step 3: Count multiples of l that divide g
+    int count = 0;
+    for (int x = l; x <= g; x += l) {
+        if (g % x == 0) {
+            count++;
+        }
+    }
+
+    printf("%d\n", count);
+    return 0;
+}
+
+3. Anagram 
+
+#include <stdio.h>
+#include <string.h>
+
+int anagram(char *s) {
+    int len = strlen(s);
+
+    // If odd length, not possible
+    if (len % 2 != 0) return -1;
+
+    int half = len / 2;
+    int count1[26] = {0};
+    int count2[26] = {0};
+
+    // Count frequency of first half
+    for (int i = 0; i < half; i++) {
+        count1[s[i] - 'a']++;
+    }
+
+    // Count frequency of second half
+    for (int i = half; i < len; i++) {
+        count2[s[i] - 'a']++;
+    }
+
+    // Calculate differences
+    int changes = 0;
+    for (int i = 0; i < 26; i++) {
+        if (count1[i] > count2[i]) {
+            changes += count1[i] - count2[i];
+        }
+    }
+
+    return changes;
+}
+
+int main() {
+    int q;
+    scanf("%d", &q);
+
+    char s[10005];
+    while (q--) {
+        scanf("%s", s);
+        printf("%d\n", anagram(s));
+    }
+
+    return 0;
+}
