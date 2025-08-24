@@ -1,0 +1,54 @@
+Sherlock and Valid String - C
+
+#include<stdio.h>
+#include<string.h>
+#define MAX 100005
+
+int isValid(char *s){
+    int freq[26] = {0};
+    int len = strlen(s);
+    
+    for(int i = 0; i<len; i++){
+        freq[s[i] - 'a']++;
+        
+    }
+    int freqCount[MAX] = {0};
+    for(int i=0; i<26; i++){
+        if(freq[i] > 0){
+            freqCount[freq[i]]++;
+        }
+    }
+    int distinctFreqs[2], counts[2], k=0;
+    
+    for(int i=1; i<MAX; i++){
+        if(freqCount[i]>0){
+            if(k==2) return 0;
+            distinctFreqs[k] = i;
+            counts[k] = freqCount[i];
+            k++;
+        }
+    }
+    if(k==1)return 1;
+    if(k==2){
+        int f1 = distinctFreqs[0], f2 = distinctFreqs[1];
+        int c1 = counts[0], c2 = counts[1];
+        
+        if((c1 ==1 && (f1 -1 == 0|| f1-1 == f2))|| (c2 == 1 && (f2 -1 == 0 || f2 - 1== f1))){
+            return 1;
+            
+        }
+        
+    }
+    return 0;
+}
+int main(){
+    char s[MAX];
+    scanf("%s", s);
+    
+    if(isValid(s)){
+        printf("YES\n");
+    }else{
+        printf("NO\n");
+    }
+    return 0;
+    }
